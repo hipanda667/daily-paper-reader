@@ -1,0 +1,297 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-12T20:17:49.030610+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 4,
+    "deep_cap": 6,
+    "deep_selected": 4,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2603.09298v1",
+      "title": "CORAL: Scalable Multi-Task Robot Learning via LoRA Experts",
+      "abstract": "Deploying Vision-Language-Action (VLA) models in real-world robotics exposes a core multi-task learning challenge: reconciling task interference in multi-task robotic learning. When multiple tasks are jointly fine-tuned in a single stage, gradients from different tasks can conflict, causing negative transfer and reducing per-task performance. Yet maintaining a separate full checkpoint per task is often storage- and deployment-prohibitive. To address this dilemma, we present CORAL, a backbone- and embodiment-agnostic framework designed primarily to mitigate multi-task interference while remaining naturally extensible to a continuous stream of new tasks. CORAL freezes a single pre-trained VLA backbone and attaches one lightweight Low-Rank Adaptation (LoRA) expert per task; at runtime, a dynamic inference engine (the CORAL Manager) routes language instructions to the appropriate expert and swaps experts on the fly with zero inference overhead. This strict parameter isolation avoids complex gating networks and prevents parameter-level cross-task interference by construction; as an added capability, it also enables sequentially introducing new tasks without parameter overwriting caused by catastrophic forgetting. We validate CORAL on a real-world Galaxea R1 dual-arm mobile manipulator and three simulation benchmarks (LIBERO, WidowX, Google Robot), where CORAL overcomes fine-grained instructional ambiguity and substantially outperforms joint training, yielding a practical and scalable system for lifelong multi-task robot learning. Website: https://frontierrobo.github.io/CORAL",
+      "authors": [
+        "Yuankai Luo",
+        "Woping Chen",
+        "Tong Liang",
+        "Zhenguo Li"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-10T07:28:41+00:00",
+      "link": "https://arxiv.org/pdf/2603.09298v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "backbone-agnostic framework with LoRA experts for VLA",
+      "llm_evidence_cn": "带有LoRA专家的VLA骨干无关框架",
+      "llm_evidence": "带有LoRA专家的VLA骨干无关框架",
+      "canonical_evidence": "带有LoRA专家的VLA骨干无关框架",
+      "llm_tldr_en": "CORAL uses LoRA experts to mitigate multi-task interference in VLA models for scalable robot learning.",
+      "llm_tldr_cn": "CORAL通过LoRA专家缓解VLA模型中的多任务干扰，实现可扩展的机器人学习。",
+      "llm_tldr": "CORAL通过LoRA专家缓解VLA模型中的多任务干扰，实现可扩展的机器人学习。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "Vision-Language-Action model architecture",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.10422v1",
+      "title": "World2Act: Latent Action Post-Training via Skill-Compositional World Models",
+      "abstract": "World Models (WMs) have emerged as a promising approach for post-training Vision-Language-Action (VLA) policies to improve robustness and generalization under environmental changes. However, most WM-based post-training methods rely on pixel-space supervision, making policies sensitive to pixel-level artifacts and hallucination from imperfect WM rollouts. We introduce World2Act, a post-training framework that aligns VLA actions directly with WM video-dynamics latents using a contrastive matching objective, reducing dependence on pixels. Post-training performance is tied to rollout quality, yet current WMs struggle with arbitrary-length video generation as they are mostly trained on fixed-length clips while robotic execution durations vary widely. To address this, we propose an automatic LLM-based skill-decomposition pipeline that segments high-level instructions into low-level prompts. Our pipeline produces RoboCasa-Skill and LIBERO-Skill, supporting skill-compositional WMs that remain temporally consistent across diverse task horizons. Empirically, applying World2Act to VLAs like GR00T-N1.6 and Cosmos Policy achieves state-of-the-art results on RoboCasa and LIBERO, and improves real-world performance by 6.7%, enhancing embodied agent generalization.",
+      "authors": [
+        "An Dinh Vuong",
+        "Tuan Van Vo",
+        "Abdullah Sohail",
+        "Haoran Ding",
+        "Liang Ma",
+        "Xiaodan Liang",
+        "Anqing Duan",
+        "Ivan Laptev",
+        "Ian Reid"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-11T05:11:44+00:00",
+      "link": "https://arxiv.org/pdf/2603.10422v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "post-training framework aligning VLA actions with world model latents",
+      "llm_evidence_cn": "将VLA动作与世界模型潜变量对齐的后训练框架",
+      "llm_evidence": "将VLA动作与世界模型潜变量对齐的后训练框架",
+      "canonical_evidence": "将VLA动作与世界模型潜变量对齐的后训练框架",
+      "llm_tldr_en": "Introduces World2Act, a framework using world models to improve VLA policy robustness via latent action alignment.",
+      "llm_tldr_cn": "引入World2Act框架，利用世界模型通过潜动作对齐提高VLA策略的鲁棒性。",
+      "llm_tldr": "引入World2Act框架，利用世界模型通过潜动作对齐提高VLA策略的鲁棒性。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "state of the art VLA model design and implementation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.09971v1",
+      "title": "TiPToP: A Modular Open-Vocabulary Planning System for Robotic Manipulation",
+      "abstract": "We present TiPToP, an extensible modular system that combines pretrained vision foundation models with an existing Task and Motion Planner (TAMP) to solve multi-step manipulation tasks directly from input RGB images and natural-language instructions. Our system aims to be simple and easy-to-use: it can be installed and run on a standard DROID setup in under one hour and adapted to new embodiments with minimal effort. We evaluate TiPToP -- which requires zero robot data -- over 28 tabletop manipulation tasks in simulation and the real world and find it matches or outperforms $π_{0.5}\\text{-DROID}$, a vision-language-action (VLA) model fine-tuned on 350 hours of embodiment-specific demonstrations. TiPToP's modular architecture enables us to analyze the system's failure modes at the component level. We analyze results from an evaluation of 173 trials and identify directions for improvement. We release TiPToP open-source to further research on modular manipulation systems and tighter integration between learning and planning. Project website and code: https://tiptop-robot.github.io",
+      "authors": [
+        "William Shen",
+        "Nishanth Kumar",
+        "Sahit Chintalapudi",
+        "Jie Wang",
+        "Christopher Watson",
+        "Edward Hu",
+        "Jing Cao",
+        "Dinesh Jayaraman",
+        "Leslie Pack Kaelbling",
+        "Tomás Lozano-Pérez"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-10T17:59:00+00:00",
+      "link": "https://arxiv.org/pdf/2603.09971v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "modular architecture combining vision foundation models with TAMP",
+      "llm_evidence_cn": "结合视觉基础模型与TAMP的模块化架构",
+      "llm_evidence": "结合视觉基础模型与TAMP的模块化架构",
+      "canonical_evidence": "结合视觉基础模型与TAMP的模块化架构",
+      "llm_tldr_en": "Introduces TiPToP, a modular open-vocabulary planning system that outperforms fine-tuned VLA models in manipulation.",
+      "llm_tldr_cn": "介绍TiPToP模块化规划系统，在操作任务中表现优于微调后的VLA模型。",
+      "llm_tldr": "介绍TiPToP模块化规划系统，在操作任务中表现优于微调后的VLA模型。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "latest architectural innovations in Vision Language Action models",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.10052v1",
+      "title": "OmniGuide: Universal Guidance Fields for Enhancing Generalist Robot Policies",
+      "abstract": "Vision-language-action(VLA) models have shown great promise as generalist policies for a large range of relatively simple tasks. However, they demonstrate limited performance on more complex tasks, such as those requiring complex spatial or semantic understanding, manipulation in clutter, or precise manipulation. We propose OMNIGUIDE, a flexible framework that improves VLA performance on such tasks by leveraging arbitrary sources of guidance, such as 3D foundation models, semantic-reasoning VLMs, and human pose models. We show how many kinds of guidance can be naturally expressed as differentiable energy functions with task-specific attractors and repellers located in 3D space, that influence the sampling of VLA actions. In this way, OMNIGUIDE enables guidance sources with complementary task-relevant strengths to improve a VLA model's performance on challenging tasks. Extensive experiments in both simulation and real-world environments, across diverse sources of guidance, demonstrate that OMNIGUIDE enhances the performance of state-of-the-art generalist policies (e.g., $π_{0.5}$, GR00T N1.6) significantly across success and safety rates. Critically, our unified framework matches or surpasses the performance of prior methods designed to incorporate specific sources of guidance into VLA policies. Project Page: $\\href{https://omniguide.github.io/}{this \\; url}$",
+      "authors": [
+        "Yunzhou Song",
+        "Long Le",
+        "Yong-Hyun Park",
+        "Jie Wang",
+        "Junyao Shi",
+        "Lingjie Liu",
+        "Jiatao Gu",
+        "Eric Eaton",
+        "Dinesh Jayaraman",
+        "Kostas Daniilidis"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.LG"
+      ],
+      "published": "2026-03-09T17:18:13+00:00",
+      "link": "https://arxiv.org/pdf/2603.10052v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "universal guidance fields to enhance generalist VLA policies",
+      "llm_evidence_cn": "增强通用VLA策略的通用引导场",
+      "llm_evidence": "增强通用VLA策略的通用引导场",
+      "canonical_evidence": "增强通用VLA策略的通用引导场",
+      "llm_tldr_en": "Presents OmniGuide, a framework that uses external guidance to improve VLA performance on complex spatial tasks.",
+      "llm_tldr_cn": "提出OmniGuide框架，利用外部引导提升VLA在复杂空间任务中的表现。",
+      "llm_tldr": "提出OmniGuide框架，利用外部引导提升VLA在复杂空间任务中的表现。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "state of the art VLA model design and implementation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.08007v1",
+      "title": "ViSA-Enhanced Aerial VLN: A Visual-Spatial Reasoning Enhanced Framework for Aerial Vision-Language Navigation",
+      "abstract": "Existing aerial Vision-Language Navigation (VLN) methods predominantly adopt a detection-and-planning pipeline, which converts open-vocabulary detections into discrete textual scene graphs. These approaches are plagued by inadequate spatial reasoning capabilities and inherent linguistic ambiguities. To address these bottlenecks, we propose a Visual-Spatial Reasoning (ViSA) enhanced framework for aerial VLN. Specifically, a triple-phase collaborative architecture is designed to leverage structured visual prompting, enabling Vision-Language Models (VLMs) to perform direct reasoning on image planes without the need for additional training or complex intermediate representations. Comprehensive evaluations on the CityNav benchmark demonstrate that the ViSA-enhanced VLN achieves a 70.3\\% improvement in success rate compared to the fully trained state-of-the-art (SOTA) method, elucidating its great potential as a backbone for aerial VLN systems.",
+      "authors": [
+        "Haoyu Tong",
+        "Xiangyu Dong",
+        "Xiaoguang Ma",
+        "Haoran Zhao",
+        "Yaoming Zhou",
+        "Chenghao Lin"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-03-09T06:29:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.08007v1",
+      "tags": [
+        "query:VLA AR"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Visual-spatial reasoning framework for embodied navigation",
+      "llm_evidence_cn": "具身导航的视觉空间推理框架",
+      "llm_evidence": "具身导航的视觉空间推理框架",
+      "canonical_evidence": "具身导航的视觉空间推理框架",
+      "llm_tldr_en": "ViSA enhances aerial navigation by enabling direct spatial reasoning on image planes for VLMs.",
+      "llm_tldr_cn": "ViSA通过使视觉语言模型能够在图像平面上直接进行空间推理，增强了空中导航能力。",
+      "llm_tldr": "ViSA通过使视觉语言模型能够在图像平面上直接进行空间推理，增强了空中导航能力。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "embodied artificial intelligence model structure",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.07135v1",
+      "title": "The Model Knows Which Tokens Matter: Automatic Token Selection via Noise Gating",
+      "abstract": "Visual tokens dominate inference cost in vision-language models (VLMs), yet many carry redundant information. Existing pruning methods alleviate this but typically rely on attention magnitude or similarity scores. We reformulate visual token pruning as capacity constrained communication: given a fixed budget K, the model must allocate limited bandwidth to maximally preserve visual information. We propose AutoSelect, which attaches a lightweight Scorer and Denoiser to a frozen VLM and trains with only the standard next token prediction loss, without auxiliary objectives or extra annotations. During training, a variance preserving noise gate modulates each token's information flow according to its predicted importance so that gradients propagate through all tokens; a diagonal attention Denoiser then recovers the perturbed representations. At inference, only the Scorer and a hard top-K selection remain, adding negligible latency. On ten VLM benchmarks, AutoSelect retains 96.5% of full model accuracy while accelerating LLM prefill by 2.85x with only 0.69 ms overhead, and transfers to different VLM backbones without architecture-specific tuning. Code is available at https://github.com/MedHK23/AutoSelect.",
+      "authors": [
+        "Landi He",
+        "Xiaoyu Yang",
+        "Lijian Xu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-07T09:57:35+00:00",
+      "link": "https://arxiv.org/pdf/2603.07135v1",
+      "tags": [
+        "query:VLA AR"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Automatic token selection for multimodal fusion efficiency",
+      "llm_evidence_cn": "多模态融合效率的自动Token选择技术",
+      "llm_evidence": "多模态融合效率的自动Token选择技术",
+      "canonical_evidence": "多模态融合效率的自动Token选择技术",
+      "llm_tldr_en": "AutoSelect uses noise gating for visual token pruning, improving the efficiency of vision-language models.",
+      "llm_tldr_cn": "AutoSelect通过噪声门控进行视觉Token剪枝，提升了视觉语言模型的推理效率。",
+      "llm_tldr": "AutoSelect通过噪声门控进行视觉Token剪枝，提升了视觉语言模型的推理效率。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "multimodal fusion techniques in VLA models",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2603.08260v1",
+      "title": "Seed2Scale: A Self-Evolving Data Engine for Embodied AI via Small to Large Model Synergy and Multimodal Evaluation",
+      "abstract": "Existing data generation methods suffer from exploration limits, embodiment gaps, and low signal-to-noise ratios, leading to performance degradation during self-iteration. To address these challenges, we propose Seed2Scale, a self-evolving data engine that overcomes the data bottleneck through a heterogeneous synergy of \"small-model collection, large-model evaluation, and target-model learning\". Starting with as few as four seed demonstrations, the engine employs the lightweight Vision-Language-Action model, SuperTiny, as a dedicated collector, leveraging its strong inductive bias for robust exploration in parallel environments. Concurrently, a pre-trained Vision-Language Model is integrated as a Verifer to autonomously perform success/failure judgment and quality scoring for the massive generated trajectories. Seed2Scale effectively mitigates model collapse, ensuring the stability of the self-evolution process. Experimental results demonstrate that Seed2Scale exhibits signifcant scaling potential: as iterations progress, the success rate of the target model shows a robust upward trend, achieving a performance improvement of 131.2%. Furthermore, Seed2Scale signifcantly outperforms existing data augmentation methods, providing a scalable and cost-effective pathway for the large-scale development of Generalist Embodied AI. Project page: https://terminators2025.github.io/Seed2Scale.github.io",
+      "authors": [
+        "Cong Tai",
+        "Zhaoyu Zheng",
+        "Haixu Long",
+        "Hansheng Wu",
+        "Zhengbin Long",
+        "Haodong Xiang",
+        "Rong Shi",
+        "Zhuo Cui",
+        "Shizhuang Zhang",
+        "Gang Qiu",
+        "He Wang",
+        "Ruifeng Li",
+        "Biao Liu",
+        "Zhenzhe Sun",
+        "Tao Shen"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-09T11:30:45+00:00",
+      "link": "https://arxiv.org/pdf/2603.08260v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "self-evolving data engine using lightweight VLA model SuperTiny",
+      "llm_evidence_cn": "使用轻量级VLA模型SuperTiny的自进化数据引擎",
+      "llm_evidence": "使用轻量级VLA模型SuperTiny的自进化数据引擎",
+      "canonical_evidence": "使用轻量级VLA模型SuperTiny的自进化数据引擎",
+      "llm_tldr_en": "Seed2Scale uses a small VLA model as a collector to overcome data bottlenecks in embodied AI training.",
+      "llm_tldr_cn": "Seed2Scale利用小型VLA模型作为采集器，克服了具身智能训练中的数据瓶颈。",
+      "llm_tldr": "Seed2Scale利用小型VLA模型作为采集器，克服了具身智能训练中的数据瓶颈。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "embodied artificial intelligence model structure",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

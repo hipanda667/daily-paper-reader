@@ -1,0 +1,337 @@
+Title: ViSA-Enhanced Aerial VLN: A Visual-Spatial Reasoning Enhanced Framework for Aerial Vision-Language Navigation
+
+URL Source: https://arxiv.org/pdf/2603.08007v1
+
+Published Time: Tue, 10 Mar 2026 01:50:10 GMT
+
+Number of Pages: 8
+
+Markdown Content:
+# ViSA-Enhanced Aerial VLN: A Visual-Spatial Reasoning Enhanced Framework for Aerial Vision-Language Navigation 
+
+Haoyu Tong 1,2†, Xiangyu Dong 3†, Xiaoguang Ma 3,6∗, Haoran Zhao 4,5, Yaoming Zhou 4∗, and Chenghao Lin 1,2
+
+Abstract — Existing aerial Vision-Language Navigation (VLN) methods predominantly adopt a detection-and-planning pipeline, which converts open-vocabulary detections into dis-crete textual scene graphs. These approaches are plagued by inadequate spatial reasoning capabilities and inherent linguistic ambiguities. To address these bottlenecks, we propose a Visual-Spatial Reasoning (ViSA) enhanced framework for aerial VLN. Specifically, a triple-phase collaborative architecture is de-signed to leverage structured visual prompting, enabling Vision-Language Models (VLMs) to perform direct reasoning on image planes without the need for additional training or complex intermediate representations. Comprehensive evaluations on the CityNav benchmark demonstrate that the ViSA-enhanced VLN achieves a 70.3% improvement in success rate compared to the fully trained state-of-the-art (SOTA) method, elucidating its great potential as a backbone for aerial VLN systems. 
+
+I. INTRODUCTION Aerial VLN requires Unmanned Aerial Vehicle (UAV) to navigate complex environments by following natural lan-guage instructions. Unlike ground-based robots confined to bounded 2D planes, UAVs operate in 3D space, where rich geometric and semantic contexts pose unique challenges in spatial reasoning and environmental understanding [1]–[5]. The core difficulty of Aerial VLN lies in precisely identi-fying target objects and verifying their spatial relationships from a 3D perspective. Existing methods typically adopt a disjoint detection-and-planning pipeline, combining open-vocabulary detectors like Grounding DINO [6] for object recognition with discrete textual scene graphs for spatial  
+
+> The authors gratefully acknowledge the support of the Reward Funds for Research Project of Tianmushan Laboratory (No. TK-2024-D-009), the National Natural Science Foundation of China (No. 52272382), and the Key R&D Program of Zhejiang (No. 2025C01056). This work was supported in part by the Hunan Key Scientific and Technological Research Foundation under Grant 2024QK2001, and in part by the Initiation Funding of Foshan Graduate School of Innovation, Northeastern University under Grant 200076421002.
+> †These authors contributed equally to this work.
+> ∗Corresponding authors.
+> 1H. Tong and C. Lin are with Tianmushan Laboratory, Beihang Univer-sity, Hangzhou 311115, China (e-mail:
+
+haoyutong@buaa.edu.cn ;
+
+linchenghao@buaa.edu.cn ).                
+
+> 2H. Tong and C. Lin are also with Hangzhou International Innovation Institute, Beihang University, Hangzhou 311115, China.
+> 3X. Dong and X. Ma are with Foshan Graduate School of Innovation, Northeastern University, Foshan, China (e-mail:
+
+dxy1999ai@163.com ; maxg@mail.neu.edu.cn ).                   
+
+> 4H. Zhao and Y. Zhou are with School of Aeronau-tic Science and Engineering, Beihang University, Beijing 100191, China (e-mail:
+
+zhaohaoran@buaa.edu.cn ;
+
+zhouyaoming@buaa.edu.cn ). 
+
+> 5H. Zhao is also with qingniaoAI.
+> 6X. Ma is also with Faculty of Robot Science and Engineering, North-eastern University, Shenyang 110819, China.
+
+reasoning [7]–[10]. However, this paradigm suffers from three critical limitations. Firstly, open-vocabulary object detectors face domain shift challenges when processing aerial view data. In unstructured urban environments, these models struggle to overcome fea-ture mismatches caused by perspective differences, limiting their zero-shot semantic grounding capability [11]. Secondly, existing VLN methods rely on textual symbolic representations, such as scene graphs, for spatial relationship reasoning [7], [8]. These discrete textual representations fail to reconstruct continuous spatial layouts, rendering agents prone to relationship hallucinations, i.e., generating spatial relationship descriptions inconsistent with visual facts [12]. Thirdly, spatial descriptions in natural language possess inherent semantic ambiguity [13]. The accurate parsing of prepositions, e.g., “between” or “across from”, depends heavily on the reference frame of the visual context, while discrete text modalities fail to capture such continuous spatial constraints [14] and cannot utilize this visual continuity to disambiguate instruction understanding. While VLMs can directly perform visual reasoning on aerial images, recent research illustrates their fundamental defects in spatial cognition [15]. Unique top-down perspec-tives and scale variations in Aerial VLN amplify these limita-tions, making VLN models trained primarily on ground data struggle with aerial perception. Specifically, VLMs exhibit limited spatial acuity during complex geographic queries [16] and reasoning inconsistencies under cross-modal constraints [17]. Additionally, VLMs in complex urban scenes produce object relationship hallucinations [12] and struggle to distin-guish between visually similar candidates [18]. While visual prompting techniques succeed in general 2D image understanding, their applications in dynamic aerial navigation remains an open challenge, and a collaborative architecture to bridge the gap between static object tagging and active spatial reasoning in 3D spatial scenes is highly de-sirable. Inspired by the proven efficacy of Visual Referencing Paradigms, particularly the explicit region-based prompting principles popularized by Set-of-Mark (SoM) [19], we pro-pose a Visual-Spatial Reasoning (ViSA) enhanced framework for aerial VLN, Specifically, a Visual Prompt Generator first transforms raw aerial observations into structured and region-annotated visual representations. Building on this, a Verifica-tion Module performs explicit spatial reasoning directly on image planes to mitigate relationship hallucinations. Finally, a Semantic-Motion Decoupled Executor is designed to sepa-rate these high-level semantic decisions from precise motion control, incorporating landmark-based waypoint generation 
+
+> arXiv:2603.08007v1 [cs.CV] 9 Mar 2026
+
+to plan efficient exploration paths. The main contributions of this work are summarized as follows:  
+
+> •
+
+We propose the ViSA-enhanced Aerial VLN framework, a zero-shot architecture that mitigates spatial reason-ing hallucinations in language-goal aerial navigation by restructuring the task into three distinct phases: Perception, Verification, and Execution.  
+
+> •
+
+A Visual Prompt Generator is introduced to partition raw images into regions of varying granularity with SoM annotations, providing the VLM with a structured visual representation for precise spatial analysis.  
+
+> •
+
+A Verification Phase is proposed to implement ex-plicit Three-Stage Verification Reasoning. This strictly grounds spatial logic within the visual modality, ensur-ing superior performance over conventional text-centric spatial reasoning approaches.  
+
+> •
+
+A Semantic-Motion Decoupled Executor (Executor) is designed to bridge high-level semantic decisions with low-level discrete actions via landmark-based waypoint generation and specialized task primitives.  
+
+> •
+
+Comprehensive evaluations on the CityNav benchmark demonstrate that our zero-shot approach achieves a70.3% improvement on success rate over the fully trained SOTA on the Test-Unseen split. II. RELATED WORK 
+
+A. Aerial Vision-Language Navigation (VLN) 
+
+Ground-level VLN, pioneered by the R2R benchmark [5], has driven innovations in cross-modal alignment, spatial reasoning, and pre-training paradigms [20]. In contrast, aerial VLN faces distinct challenges from aerial viewpoints and continuous 3D action spaces. Pioneering benchmarks [2], [3], [21] demonstrate that directly using ground-based paradigms on aerial VLN leads to poor generalization, emphasizing the need for tailored approaches. To enhance its reasoning and navigation capabilities, recent works have integrated Multimodal Large Language Models (MLLMs) into aerial VLN [3], [7]–[9], [22]. These methods either adopt a disjoint detection-and-planning pipeline that restricts holistic reason-ing or require resource-intensive pre-training. In contrast, our work introduces a triple-phase collaborative architecture that leverages structured visual prompting to unlock the spatial reasoning potential of VLMs without the need for additional training or complex intermediate representations. 
+
+B. Visual Prompting 
+
+Visual Prompting (VP) has emerged as a core non-parametric interaction paradigm for enhancing the reasoning and grounding capabilities of VLMs, eliminating the need for extensive fine-tuning [23]. Recent advances illustrate that augmenting visual inputs with explicit markers, such as drawn shapes, bounding boxes, or segmentation masks, can direct model attention and facilitate user-aligned compre-hension [19], [24], [25]. Furthermore, techniques like Con-trastive Region Guidance [26] and Visual Position Prompting [27] have proven that training-free visual manipulations and explicit coordinate encodings can improve region-specific grounding. Recently, VP has been introduced into VLN to guide agents via explicit visual cues [28], [29]. However, ex-isting approaches primarily utilize VP for immediate action guidance, leaving the potential of VP for enhancing spatial reasoning in aerial VLN unexplored. III. METHODOLOGY 
+
+A. Problem Formulation and Framework Overview 
+
+We formulate aerial VLN tasks in unknown urban envi-ronments as follows. Prior information of landmarks L ∈ L 
+
+is accessible to the UAV, with prior knowledge defined as a tuple KL = ( Ilabel , P, C), where Ilabel denotes the landmark name, P denotes the centroid coordinates, and C denotes the contour point set. Given an instruction T (e.g., “house with white roof on the left of Broadway road”), the UAV obtains the location and shape information of L through Ilabel .Formally, each navigation episode is defined as a triplet 
+
+E = ( T , p 0, Kprior ), where T denotes the natural language instruction, p0 = (x0, y 0, z 0, θ 0) denotes the initial pose of the UAV (with (x0, y 0) as the world coordinates, z0
+
+as the altitude, and θ0 as the heading), and Kprior =
+
+{K L(1) , . . . , KL(N ) } denotes the set of prior knowledge for all available landmarks. At each time step t, the UAV obtains a bird’s-eye view ob-servation image It and the current pose pt = ( xt, y t, z t, θ t).The CityNav environment natively provides a low-level discrete action space Alow including move-forward, turn-left, turn-right, ascend, descend, stop, and our framework employs a hierarchical control strategy to bridge the gap between abstract visual reasoning and precise flight. In fact, our system issues a high-level semantic task primitive at ∈{stop , move , ascend , descend }, which will be translated into a sequence of low-level Alow commands by the Executor subsequently, as detailed in Section III-E. The objective is to reach the target location ptarget within a limited number of steps T . Success is determined by the Euclidean distance ∥ppos  
+
+> T
+
+− ptarget ∥ ≤ ϵ between the termination position and the target, where ϵ = 20 meters is the success threshold and ppos  
+
+> T
+
+denotes the world coordinates of the termination position. Given an instruction T and landmark priors Kprior , the framework invokes landmark-based waypoint generation to pre-compute an exploration path from merged landmark contours as depicted in Figure 1. At each time step t, the UAV acquires a raw bird’s-eye view image It and proceeds through three distinct, tightly coupled phases as shown in Sections III-C to III-E. By restructuring the navigation task into these three phases, ViSA mitigates VLM hallucinations and keeps spatial reasoning strictly within the visual modal-ity. A closed-loop feedback mechanism connects the phases, i.e., when the Verification Phase yields insufficient evidence, a natural-language guidance signal g feeds back to steer the next round of perception. Guidace Signal s                
+
+> (Semantic -Motion Decoupled Executor)
+> (Visual Prompt Generator -VPG) Target coordinate ( xj,yj)
+> Verification Phase
+> Perceptual Phase
+> Representation
+> (Verification Module -VM)
+> Boundary Validation
+> Execution Phase
+> Spatial Topology
+> Ascend / Descend
+> Literal Attribute
+> Landmark -Based
+> Waypoint Generation
+> Open -Vocabulary
+> Geographic
+> Verification
+> Detection
+> Matching
+> Waypoint
+> Annotated
+> Visual Prompting
+> Annotation
+> Move
+> Stop
+> Next
+> Instruction s
+> Inputs
+> O
+> O
+> O
+> I
+> Pre -computed
+> Path
+> Three -Stage
+> Visual Reasoning
+> VLM
+> Landmark
+> Prior
+> UAV Image sTask
+> Primitive
+> New UAV Position
+> 𝑉 𝑠𝑜𝑚 Fig. 1. Overall architecture of ViSA . The system iterates through three phases per time step: (1) VPG transforms raw observations into SoM-annotated visual representations; (2) VM performs Three-Stage Verification reasoning and emits task primitives; (3) Executor translates semantic decisions into UAV motion. Closed-loop feedback from VM to VPG enables adaptive detection across iterations.
+
+B. Landmark-Based Waypoint Generation 
+
+For instructions involving complex spatial constraints (e.g., “around the block”), the Executor leverages prior land-mark contour geometry to pre-compute efficient exploration waypoints. Given prior contours of instruction-related landmarks, the waypoint generation proceeds in three steps: 
+
+Contour merging : compute the merged contour as 
+
+Cmerged =
+
+> N
+
+[
+
+> i=1
+
+C(i) (1) and identify intersection areas as priority search regions; 
+
+Grid generation : produce candidate observation points within the merged contour’s bounding box with step size 
+
+∆grid = FOV (z) × (1 − r) (2) where the field of view (FOV) at altitude z is given by FOV (z) = ( z − zground ) × α (3) with parameters α = 2 .0 and r = 0 .3;
+
+Greedy selection : apply a greedy set cover to select an observation subset Pselected that maximizes cumulative coverage over Cmerged with FOV overlap constraints. Finally, visitation order is optimized via Traveling Salesperson Prob-lem (TSP) to minimize total flight distance. The Executor generates this path during initialization and executes move 
+
+commands sequentially along pre-computed waypoints. 
+
+C. Perception Phase 
+
+Within the Perception Phase, we employ a Visual Prompt Generator (VPG) to process the raw bird’s-eye view image 
+
+It. To extract semantic regions, the VPG leverages the native open-vocabulary detection capabilities of modern VLMs. Unlike traditional open-vocabulary detection models that are implicitly bounded by their training distributions, restricted to isolated word queries, and lack holistic environmental sensitivity, VLM-based detection offers superior adaptabil-ity. It accommodates complex, free-form natural language prompts to simultaneously localize multiple diverse objects in a single pass with contextual awareness. Upon identifying these candidate targets, the VPG partitions the image into regions of varying granularity and overlays them with SoM annotations, producing a structured visual representation 
+
+Vsom ≜ (Isom , M som ). Here, Isom is the annotated image and 
+
+Msom is the symbolic mapping: 
+
+Msom = {[1] → o1, [2] → o2, . . . , [N ] → oN }, (4) where each numerical ID uniquely references a physical entity. This process provides the VLMs with a structured vi-sual representation for precise spatial analysis. By adopting a high-recall open-vocabulary detection strategy, the VPG captures all potential candidates in the scene. Rather than prematurely filtering entities based on heuristic confidence thresholds, the Perception Phase passes all detected proposals to the Verification Phase, thereby decoupling detection recall from verification precision. 
+
+D. Verification Phase 
+
+Building upon the annotated images and structured visual representations provided by the Perception Phase, the Veri-fication Module (VM) executes explicit Three-Stage Verifi-cation Reasoning. The VM receives Vsom together with the instruction T and outputs a verification decision along with an optional search guidance signal g. By reasoning directly on image planes, this phase strictly grounds spatial logic within the visual modality, ensuring superior performance over conventional text-centric spatial reasoning. This phase decomposes spatial verification into three sequential stages: 
+
+Literal Attribute Matching. By referencing SoM identi-fiers (e.g., ①), the VM verifies whether the visible features of candidate targets align with the natural language instruction. It adheres strictly to literal observation; the VM evalu-ates only directly visible attributes and defers decisions by marking targets as “pending” when visual evidence remains insufficient. 
+
+Spatial Topology Verification. The VM verifies spatial relationships by referencing numerical IDs (e.g., “ ① is across from ②”) rather than relying on discrete textual scene graphs, eliminating referential ambiguity. 
+
+Geographic Boundary Validation. The VM ensures can-didates are geographically legitimate by checking whether they conform to the spatial relationships with known land-marks, avoiding selecting targets that visually match but are geographically incorrect. 
+
+Iterative VPG Prompting. When the current scene yields inconclusive spatial evidence, the VM outputs a natural-language guidance signal g (e.g., “focus on white vehicles near the intersection”). This signal is directly passed back to the Perception Phase as the textual prompt for the subsequent detection round, helping narrow the search scope. 
+
+E. Execution Phase 
+
+The Execution Phase serves as the interface between abstract semantic reasoning and physical control. To cir-cumvent the limitations of zero-shot VLMs in generating low-level control signals, we introduce a Semantic-Motion Decoupled Executor. We define the execution mapping as: 
+
+fexec : ( It, p t, a t, Kprior ) → pt+1 (5) which translates the current state s, a specific task primi-tive at, and the available landmark priors Kprior into the target UAV pose pt+1 .The VM’s semantic decisions are mapped to UAV actions through three specialized task primitives: 
+
+Stop. Upon target confirmation by the VM, the Executor must translate the visual semantic result into a physical navigation goal. To map the 2D pixel centroid of the target to 3D world coordinates, we adopt the unprojection formulation from GeoNav [7]. By leveraging the camera intrinsic matrix and the known UAV flight altitude relative to the ground plane, the pixel centroid is directly unprojected to obtain the target’s world coordinates pt+1 = ( xtarget , y target , z t, θ t). The Executor then navigates the UAV directly to this location, effectively avoiding multi-step accumulated errors. 
+
+Move. The Executor flies the UAV to the next pre-computed waypoint from Pselected , where the Perception Phase is triggered to re-observe the scene and autonomously decide the next action. 
+
+Ascend / Descend. The Executor adjusts altitude by 
+
+∆z = ±10 meters to expand or shrink the observation FOV accordingly, balancing detail resolution with scene coverage. IV. E XPERIMENT 
+
+A. Experiment Setting 1) Dataset Preparation: The navigation instructions uti-lized in our experiments are derived from the original and refined CityNav [1] dataset, which comprises 32,326 natu-ral language descriptions paired with human demonstration trajectories, all collected by crowd-sourcing. Each language description encompasses information such as landmarks, regions, and objects. In each of the Validation Seen (Val-Seen), Validation Unseen (Val-Unseen), and Test-Unseen datasets, tasks are divided into three levels of difficulties with increasing start-target distances. The UAV images are taken from SensatUrban [30], which gathers orthographic projec-tions and depth maps of 13 blocks in Birmingham and 33 blocks in Cambridge. These data are utilized to simulate the RGBD inputs that an actual UAV acquires during navigation. Additionally, the geometric outlines of landmarks within the geographic information database are obtained from CityRefer [31], providing essential information for the navigation tasks. 
+
+2) Evaluation Metrics: Following standard evaluation protocol established by CityNav, we employ four metrics to comprehensively assess navigation performance. 
+
+• Navigation Error (NE): The Euclidean distance be-tween the agent’s final position and the ground truth target location. Lower NE indicates superior localization accuracy. 
+
+• Success Rate (SR): The percentage of episodes in which the agent terminates within a predefined success threshold (20 meters) of the target, reflecting goal-reaching capability. 
+
+• Oracle Success Rate (OSR): The proportion of episodes where the agent, at any point during naviga-tion, approaches within 20 meters of the target regard-less of final stopping position. This metric decouples instruction grounding from path execution. 
+
+• Success weighted by Path Length (SPL): SPL is a metric where SR is weighted by the ratio of the optimal path length to the actual path taken, rewarding short navigation paths. 
+
+3) Implementation Details: Our method is deployed on an NVIDIA GeForce RTX 4090 GPU with 24GB memory and an Intel Xeon Silver 4210R CPU. Unlike previous pipelined approaches that rely on specialized detector models, e.g., Grounding DINO for perception, our framework leverages the native object detection capabilities of VLM. Specifically, the VPG directly utilizes the Qwen3-VL-PLUS online API to propose open-vocabulary bounding boxes. The same VLM is subsequently utilized by the Verification Module for spatial reasoning, using a sampling temperature of 0.6. To ensure a strictly fair evaluation, baseline methods GeoNav and Flight-GPT are used with the exactly same landmark priors ( Kprior )from the CityRefer database as our proposed framework. 
+
+B. Main Results 1) Comparison with Zero-Shot Methods: Table I presents the overall performance of our method compared to zero-shot baseline methods on the CityNav Val-Seen split. The ViSA method achieves the best SR, NE, and SPL metrics across all difficulty levels. Specifically, ViSA obtains SRs of 30.19%, 29.34%, and 28.54%, surpassing the primary baseline GeoNav by 13.8%, 28.0%, and 71.2% for Easy, Medium, and Hard tasks, respectively. This progressive improvement demonstrates that our visual-centric reasoning paradigm maintains robust target TABLE I PERFORMANCE COMPARISON OF ZERO -SHOT METHODS ON THE CITY NAV DATASET ACROSS THREE DIFFICULTY LEVELS . BOLD INDICATES BEST ,
+
+> UNDERLINE INDICATES SECOND -BEST .
+
+Method Easy Medium Hard 
+
+NE ↓ SR ↑ OSR ↑ SPL ↑ NE ↓ SR ↑ OSR ↑ SPL ↑ NE ↓ SR ↑ OSR ↑ SPL ↑
+
+Random 340.62 0.00 0.00 0.00 548.30 0.00 0.00 0.00 654.26 0.00 0.00 0.00 Greedy 105.63 1.55 3.15 0.97 103.00 0.00 4.88 0.00 78.80 0.00 2.71 0.00 GPT-4o 301.45 0.00 7.50 0.00 327.25 0.00 6.25 0.00 401.63 0.00 0.00 0.00 Qwen3-VL-PLUS 838.33 0.49 7.54 0.03 836.11 0.00 2.49 0.00 876.23 0.24 1.65 0.17 GeoNav [7] 59.86 26.53 73.47 12.05 53.80 22.92 39.58 17.06 68.90 16.67 22.92 12.49 
+
+ViSA-enhanced VLN (Ours) 47.75 30.19 38.39 19.35 51.51 29.34 34.45 23.94 58.96 28.54 34.97 24.33 
+
+grounding without relying on heavy and error-prone explicit scene-graph generation as spatial complexity increasing. Furthermore, our method achieves superior path efficiency, evidenced by consistent improvements in SPL across all difficulty levels. While, the GeoNav exhibits a relatively high OSR (e.g., 73.47% on Easy level), it suffers from a substan-tial discrepancy between its OSR and actual SR (26.53%). This indicates that although the GeoNav frequently encoun-ters the target during its navigation trajectory, it lacks the recognition capacity to definitively halt and confirm it. In contrast, ViSA maintains a narrow margin between OSR and SR (e.g., 38.39% OSR vs. 30.19% SR on Easy level). This minimal discrepancy validates that ViSA enhances the agent’s target grounding and confirmation capabilities. In fact, once the destination falls within the FOV, it is reliably identified and explicitly confirmed. To evaluate the stability of ViSA against the inherent stochasticity of VLMs, we conduct five independent runs across all difficulty levels. The SR exhibits a standard deviation of merely 0.6% on Easy tasks and 1.3% on Hard tasks. Furthermore, both NE and SPL maintain tight bounds across all splits ( ≤ 1.0m and ≤ 1.1% , respectively). This minimal variance confirms that our explicit visual grounding and Three-Stage Verification Reasoning effectively constrain the VLM’s reasoning process, largely mitigating the ”lucky seed” phenomenon and ensuring highly reproducible naviga-tion performance.                                  
+
+> TABLE II PERFORMANCE COMPARISON OF TRAINED METHODS ON THE CITY NAV
+> TEST -U NSEEN SPLIT .BOLD INDICATES BEST ,UNDERLINE INDICATES SECOND -BEST .
+> Method NE ↓SR ↑OSR ↑SPL ↑
+> Random 208.80 0.00 1.44 0.00 Seq2Seq 174.50 1.73 8.57 1.69 CMA 179.10 1.61 10.07 1.57 MGP 93.80 6.38 26.04 6.08 FlightGPT [22] 76.20 21.20 35.38 19.24
+> ViSA-enhanced VLN (Ours) 45.73 36.11 43.37 27.31
+
+2) Comparison with Supervised Methods: Table II presents the performance comparison between our zero-shot method and supervised learning-based approaches on the CityNav Test-Unseen split. ViSA achieves superior perfor-mance against all trained baselines without requiring task-specific fine-tuning. ViSA attains a SR of 36.11% and an SPL of 27.31%, outperforming traditional learning-based methods such as Seq2Seq (SR: 1.73%, SPL: 1.69%) and CMA (SR: 1.61%, SPL: 1.57%). Compared to the MGP baseline, which in-corporates map-based guidance, our method improves SR by 466% and SPL by 349%. This margin demonstrates the superiority of our vision-centric reasoning paradigm over traditional map-dependent representations in handling unseen environments. Notably, ViSA surpasses FlightGPT [22], the previous SOTA supervised method that employs extensive Supervised Fine-Tuning (SFT) and Reinforcement Learning (RL) train-ing by 70.3% and 41.9% for SR and SPL, respectively. This result demonstrates that appropriate architectural design, i.e., structured visual prompting and explicit spatial verification, enables general-purpose VLMs to outperform specialized models trained on domain-specific data. Furthermore, the lower NE of our method (45.73m compared to FlightGPT’s 76.20m) validates the precision of our landmark-based way-point generation and closed-loop verification mechanism. By decoupling perception and verification through our dual-module architecture, and by leveraging visual conti-nuity via visual prompting, our method achieves superior generalization without the distribution shift risks inherent to supervised training. In fact, higher OSR (43.37% vs. 35.38%) indicates that our targeted exploration strategy maintains broader coverage while simultaneously improving localization accuracy, seamlessly translating into the 14.91% absolute gain in final SR. 
+
+C. Ablation Study 
+
+To systematically validate the effectiveness of our triple-phase architecture, we conduct ablation tests on the Val-Seen Easy. 
+
+Role of the Visual Prompting and Verification Reason-ing. To evaluate the impact of structured VP, we introduce a w/o V variant that directly feeds raw, unannotated bird’s-eye view images to the VLM, bypassing the VP step. As Instruction 𝓘 The red car parked underneath the parking lot on Adam and Eve Street behind the Tram Depot. 
+
+Three -Stage 
+
+Visual Reasoning 
+
+> Literal Attribute
+> Matching
+> Spatial Topology
+> Verification
+
+Decision                              
+
+> Geographic
+> Boundary Validation
+> YES .①is a red car on the surface. The term
+> "underneath" is physically impossible in this top -
+> down view and contradicts the visible positioning.
+> REJECTED .①is north (“in front ”)of The Tram
+> Depot (Yellow ①), not "behind" it. It is also inside
+> the parking lot rather than on the street itself.
+> YES. ②is a red car. Per Commander guidance,
+> "underneath" is treated as a misstatement for
+> being "on" the surface of the parking lot.
+> MATCHED. ②is positioned directly “behind ”
+> The Tram Depot (Yellow ①). It sits within the
+> designated parking area corresponding to the
+> instruction.
+> YES. This object satisfies the visual and
+> corrected spatial requirements.
+> Target Confirmed :②satisfies the visual criteria and matches the corrected spatial
+> relationship relative to The Tram Depot.
+> Action :fly_to_target with confirmed_som_id :2.
+> MAYBE. Object is a red car but is partially
+> cropped at the image edge, making full
+> identification difficult.
+> REJECTED. ③is too distant from the primary
+> landmarks and does not sit in the immediate
+> vicinity of the Tram Depot.
+> NO. Fails spatial proximity checks.
+> Analysis of Red -Boxed Object ③Analysis of Red -Boxed Object ②Analysis of Red -Boxed Object ①
+
+Time 
+
+STEP2  STEP 3     
+
+> NO. Fails due to literal contradiction ("underneath")
+> and incorrect orientation relative to the depot.
+> Target Not Found : The only candidate ①fails both
+> literal matching and spatial constraints.
+> Action :move_search . Explore areas behind the depot
+> and clarify if "underneath" meant "on" the lot.
+
+Visual Prompt 
+
+Generator(VPG) 
+
+Semantic -Motion 
+
+Decoupled Executor 
+
+> Next waypoint
+
+Fig. 2. Visualization of the VLM’s explicit reasoning trace during a navigation episode in the CityNav environment.ViSA demonstrates robust spatial reasoning by accommodating a flawed spatial preposition (“underneath” instead of “on”). The sequence illustrates the logical rejection of an initial false-positive red car ① located in front of the Tram Depot ③, followed by closed-loop guided search that successfully locates and verifies the correct target positioned behind the depot. 
+
+shown in Table III, removing the VPG degrades navigation capability, with the SR dropping from 30.19% to 20.83%. The absence of VP exposes the VLM to severe referential ambiguity. Even when equipped with spatial reasoning, the model struggles to ground complex spatial constraints to specific pixel regions in dense urban scenes. This confirms that VP is a fundamental prerequisite for accurate spatial analysis. Furthermore, we construct a w/o R variant by replacing our Three-Stage Verification Reasoning with unconstrained, direct VLM generation, allowing the model to select targets without sequential logical checks. This modification reduces the SR to 20.14% and the OSR to 29.03%. We observe that without the structured reasoning pipeline, the rationales provided by the VLM for its navigation decisions are often insufficient and logically incomplete. The model frequently fails to account for the exhaustive set of spatial constraints mentioned in the instructions, often prioritizing a single salient attribute while overlooking the complex ensemble of topological and geographic requirements. Our explicit reasoning pipeline forces the model to anchor its logic strictly on visual facts, effectively suppressing these hallucinations. Notably, simultaneously removing both components ( w/o R+V ) results in a performance collapse (SR: 10.83%, OSR: 24.17%). This sharp decline demonstrates that VP and explicit spatial reasoning are highly complementary and mutually dependent. Visual prompting provides the necessary addressable entities, while structured reasoning utilizes these entities to enforce logical spatial constraints. 
+
+Role of the Dual-Stage VLM Inference. Our triple-phase framework employs a decoupled VLM design that separates visual perception and spatial verification into two distinct inference stages. To justify our decoupled design, we test a w/o D variant where a single VLM is prompted to simultaneously perform open-vocabulary detection and spatial verification in one pass. This results in a significant performance collapse, with SR decreasing to 20.56% and OSR decreasing to 22.50%. Forcing a single VLM to handle both dense visual perception (identifying dozens of objects) and complex multi-step logical reasoning overwhelms the model’s context window and cognitive load. The model’s attention becomes diluted, often causing it to hallucinate nonexistent objects or prematurely terminate the search. By decoupling perception from verification into two phases, ViSA successfully distributes this cognitive burden. 
+
+Role of the Execution Phase. Finally, we evaluate the 
+
+w/o E variant by removing the Executor, forcing the VLM to directly output low-level discrete actions Alow (e.g., turn-left, move-forward). Under this setting, the navigation almost entirely fails. Current VLMs inherently lack the capacity to map visual semantics into low-level discrete actions and infer complex spatiotemporal relationships. In fact, the VLM frequently falling into invalid, repetitive action loops (e.g., issuing continuous turn-left commands) and failing to for-mulate any systematic exploration strategy. The Executor is indispensable because it successfully bridges the fundamen-tal gap between the VLM’s high-level semantic reasoning and the UAV’s low-level flight control.            
+
+> TABLE III ABLATION STUDY ON VAL -S EEN EASY .✓INDICATES THE COMPONENT IS INCLUDED . A BBREVIATIONS :V: V ISUAL PROMPTING ,R:VERIFICATION REASONING ,D: D UAL -STAGE VLM, E: E XECUTOR .
+
+Method V R D E NE ↓ SR ↑ OSR ↑ SPL ↑
+
+ViSA ✓ ✓ ✓ ✓ 47.75 30.19 38.39 19.35 
+
+w/o R ✓ ✓ ✓ 77.68 20.14 29.03 13.02 w/o V ✓ ✓ ✓ 54.30 20.83 33.19 10.44 w/o R+V ✓ ✓ 63.24 10.83 24.17 5.90 w/o D ✓ ✓ ✓ 57.48 20.56 22.50 17.74 w/o E ✓ ✓ ✓ 88.90 9.51 10.73 8.99 
+
+D. Qualitative Analysis 
+
+To demonstrate the efficacy of ViSA in handling complex spatial instructions and textual ambiguities, we present a suc-cessful high-precision navigation episode in the Cambridge environment with terminal Navigation Error of 0.18m. 
+
+Instruction Analysis and Waypoint Generation. The task requires the UAV to locate: a red car parked underneath the parking lot on Adam and Eve Street behind the Tram Depot.(Note: The instruction contains a flawed preposition, stating “underneath” instead of “on” the parking lot). The Executor extracts the geographic contour of “The Tram Depot” from the prior database and computes a focused exploration path, preventing exhaustive global search. 
+
+Initial Perception and Logical Rejection. At the initial observation point, the VPG leverages its open-vocabulary capacity to identify and apply SoM identifiers to a candidate red car ① and the Tram Depot building ③. The VM then receives the structured visual representation and performs Three-Stage Verification Reasoning: 1) Literal Attribute Matching: The VM successfully grounds the visual attributes “red” and “car” to candi-date ①. Furthermore, it detects the physical impossi-bility of “underneath” the parking lot, accommodating this flawed preposition by implicitly grounding the search to the visible surface based on visual common sense. 2) Spatial Topology Verification: The VM explicitly eval-uates the local topology and determines that candidate 
+
+① is positioned in front of the Tram Depot ③, directly contradicting the “behind” requirement. 3) Geographic Boundary Validation: Beyond local topol-ogy, the VM verifies the candidate against macro-level geographic constraints. It recognizes that candidate ①
+
+resides on the main thoroughfare rather than within the specific boundaries of the “parking lot on Adam and Eve Street”, violating the geographic requirement. Consequently, the VM rejects this false-positive candidate, sends a closed-loop guidance signal back to the VPG (“Search for a red car positioned behind ③, not in front”), and triggers a move primitive to continue exploration. 
+
+Guided Search and Target Confirmation. When reach-ing the next waypoint, the VPG adjusts its attention based on the feedback and successfully locks onto a new red car 
+
+① behind the depot. The VM performs another rigorous three-stage verification, i.e., the candidate visually matches a red car, correctly sits directly behind the Tram Depot, and falls within the geographic boundaries of the parking lot on Adam and Eve Street. With all constraints satisfied, the VM emits the stop decision, and the Executor navigates the UAV precisely to the target coordinates. V. CONCLUSION AND FUTURE WORK In this paper, we present ViSA-enhanced VLN, a zero-shot VLN framework that redefines spatial reasoning for Aerial VLN. ViSA circumvents the information bottlenecks prevalent in discrete textual scene graphs by confining spa-tial reasoning strictly within the visual modality via visual prompting and a three-phase architecture. The Perception Phase and Verification Phases synergize high-recall visual perception with rigorous explicit reasoning, while the Exe-cution Phase translates these semantic decisions into efficient flight paths via a Semantic-Motion Decoupled Executor. Experiments on the CityNav benchmark demonstrate that ViSA outperforms existing zero-shot and fully-trained VLN baselines. Several limitations persist and warrant future investigation. First, the reliance on large VLM APIs introduces inference latency, restricting real-time deployment on low-power edge devices. Second, although our framework utilizes altitude adjustments, it lacks an active 3D perception mechanism such as lateral maneuvers or camera pitch control to fully re-solve the occlusions of vertical features like building facades. Third, our current waypoint generation relies on landmark priors ( Kprior ) as dictated by the CityNav benchmark which degrades transferability. To address these limitations, future work will focus on three directions: (1) deploying lightweight VLMs via model compression to reduce edge inference latency; (2) incorporating active 6-DoF camera control strate-gies to overcome 3D visual occlusions; and (3) integrating multimodal world models to eliminate reliance on landmark priors, thereby enabling fully autonomous exploration in completely unmapped environments. REFERENCES [1] J. Lee, T. Miyanishi, S. Kurita, K. Sakamoto, D. Azuma, Y. Matsuo, and N. Inoue. Citynav: A large-scale dataset for real-world aerial navigation. [Online]. Available: http://arxiv.org/abs/2406.14240 [2] S. Liu, H. Zhang, Y. Qi, P. Wang, Y. Zhang, and Q. Wu, “Aeri-alvln: Vision-and-language navigation for uavs,” in Proceedings of the IEEE/CVF International Conference on Computer Vision , 2023, pp. 15 384–15 394. [3] X. Wang, D. Yang, Z. Wang, H. Kwan, J. Chen, W. Wu, H. Li, Y. Liao, and S. Liu. Towards realistic uav vision-language navigation: Platform, benchmark, and methodology. [Online]. Available: http://arxiv.org/abs/2410.07087 [4] X. Dong, H. Zhao, J. Gao, H. Li, X. Ma, Y. Zhou, F. Chen, and J. Liu, “Se-vln: A self-evolving vision-language navigation framework based on multimodal large language models,” 2025. [Online]. Available: https://arxiv.org/abs/2507.13152 [5] P. Anderson, Q. Wu, D. Teney, J. Bruce, M. Johnson, N. S¨ underhauf, I. Reid, S. Gould, and A. Van Den Hengel, “Vision-and-language nav-igation: Interpreting visually-grounded navigation instructions in real environments,” in Proceedings of the IEEE conference on computer vision and pattern recognition , 2018, pp. 3674–3683. [6] S. Liu, Z. Zeng, T. Ren, F. Li, H. Zhang, J. Yang, Q. Jiang, C. Li, J. Yang, H. Su, J. Zhu, and L. Zhang. Grounding dino: Marrying dino with grounded pre-training for open-set object detection. [Online]. Available: http://arxiv.org/abs/2303.05499 [7] H. Xu, Y. Hu, C. Gao, Z. Zhu, Y. Zhao, Y. Li, and Q. Yin. Geonav: Empowering mllms with explicit geospatial reasoning abilities for language-goal aerial navigation. [Online]. Available: http://arxiv.org/abs/2504.09587 [8] Y. Gao, Z. Wang, P. Han, L. Jing, D. Wang, and B. Zhao. Exploring spatial representation to enhance llm reasoning in aerial vision-language navigation. [Online]. Available: http://arxiv.org/abs/2410.08500 [9] W. Zhang, C. Gao, S. Yu, R. Peng, B. Zhao, Q. Zhang, J. Cui, X. Chen, and Y. Li. Citynavagent: Aerial vision-and-language navigation with hierarchical semantic planning and global memory. [Online]. Available: http://arxiv.org/abs/2505.05622 [10] T. Li, T. Huai, Z. Li, Y. Gao, H. Li, and X. Zheng, “Skyvln: Vision-and-language navigation and nmpc control for uavs in urban envi-ronments,” in 2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) . IEEE, 2025, pp. 17 199–17 206. [11] Y. Zhou, J. Li, C. Ou, D. Yan, H. Zhang, and X. Xue, “Open-vocabulary object detection in uav imagery: A review and future perspectives,” Drones , vol. 9, no. 8, p. 557, 2025. [12] M. Wu, J. Ji, O. Huang, J. Li, Y. Wu, X. Sun, and R. Ji. Evaluating and analyzing relationship hallucinations in large vision-language models. [Online]. Available: http://arxiv.org/abs/2406.16449 [13] H. Hong, S. Wang, Z. Huang, Q. Wu, and J. Liu. Why only text: Empowering vision-and-language navigation with multi-modal prompts. [Online]. Available: http://arxiv.org/abs/2406.02208 [14] F. Liu, G. Emerson, and N. Collier, “Visual spatial reasoning,” 
+
+Transactions of the Association for Computational Linguistics , vol. 11, pp. 635–651, 2023. [15] Z. Chen, Y. Min, J. Zhang, B. Yan, J. Wang, X. Wang, and S. Shan. A survey of multimodal hallucination evaluation and detection. [Online]. Available: http://arxiv.org/abs/2507.19024 [16] N. Alam, L. K. Murali, S. Bharadwaj, P. Liu, T. Chung, D. Sharma, A. A, K. Kiran, W. Tam, and B. K. S. Vegesna. The spatial blindspot of vision-language models. [Online]. Available: http://arxiv.org/abs/2601.09954 [17] Z. Zhu, J. Liang, S. Jiang, J. Fu, M. Liu, G. Sun, S.-K. Ng, and B. Qin. Analyzing reasoning consistency in large multimodal models under cross-modal conflicts. [Online]. Available: http://arxiv.org/abs/2601.04073 [18] W. Zhang, M. Cai, T. Zhang, Y. Zhuang, and X. Mao, “Earthgpt: A universal multimodal large language model for multisensor image comprehension in remote sensing domain,” IEEE Transactions on Geoscience and Remote Sensing , vol. 62, pp. 1–20, 2024. [19] J. Yang, H. Zhang, F. Li, X. Zou, C. Li, and J. Gao. Set-of-mark prompting unleashes extraordinary visual grounding in gpt-4v. [Online]. Available: http://arxiv.org/abs/2310.11441 [20] Y. Zhang, Z. Ma, J. Li, Y. Qiao, Z. Wang, J. Chai, Q. Wu, M. Bansal, and P. Kordjamshidi. Vision-and-language navigation today and tomorrow: A survey in the era of foundation models. [Online]. Available: http://arxiv.org/abs/2407.07035 [21] Y. Fan, W. Chen, T. Jiang, C. Zhou, Y. Zhang, and X. Wang, “Aerial vision-and-dialog navigation,” in Findings of the Association for Computational Linguistics: ACL 2023 , 2023, pp. 3043–3061. [22] H. Cai, J. Dong, J. Tan, J. Deng, S. Li, Z. Gao, H. Wang, Z. Su, A. Sumalee, and R. Zhong. Flightgpt: Towards generalizable and interpretable uav vision-and-language navigation with vision-language models. [Online]. Available: http://arxiv.org/abs/2505.12835 [23] J. Wu, Z. Zhang, Y. Xia, X. Li, Z. Xia, A. Chang, T. Yu, S. Kim, R. A. Rossi, R. Zhang, et al. , “Visual prompting in multimodal large language models: A survey,” arXiv preprint arXiv:2409.15310 , 2024. [24] W. Lin, X. Wei, R. An, P. Gao, B. Zou, Y. Luo, S. Huang, S. Zhang, and H. Li, “Draw-and-understand: Leveraging visual prompts to enable mllms to comprehend what you want,” arXiv preprint arXiv:2403.20271 , 2024. [25] S. Jiang, Y. Zhang, C. Zhou, Y. Jin, Y. Feng, J. Wu, and Z. Liu, “Joint visual and text prompting for improved object-centric perception with multimodal large language models,” arXiv preprint arXiv:2404.04514 ,2024. [26] D. Wan, J. Cho, E. Stengel-Eskin, and M. Bansal, “Contrastive region guidance: Improving grounding in vision-language models without training,” in European Conference on Computer Vision . Springer, 2024, pp. 198–215. [27] W. Tang, Y. Sun, Q. Gu, and Z. Li, “Visual position prompt for mllm based visual grounding,” IEEE Transactions on Multimedia , 2026. [28] M. Cai, H. Liu, S. K. Mustikovela, G. P. Meyer, Y. Chai, D. Park, and Y. J. Lee, “Vip-llava: Making large multimodal models understand arbitrary visual prompts,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 2024, pp. 12 914–12 923. [29] S. Feng, Z. Wang, Y. Li, R. Kong, H. Cai, S. Wang, G. H. Lee, P. Li, and S. Jiang. Vpn: Visual prompt navigation. [Online]. Available: https://arxiv.org/abs/2508.01766 [30] Q. Hu, B. Yang, S. Khalid, W. Xiao, N. Trigoni, and A. Markham, “Sensaturban: Learning semantics from urban-scale photogrammetric point clouds,” International Journal of Computer Vision , vol. 130, no. 2, pp. 316–343, 2022. [31] T. Miyanishi, F. Kitamori, S. Kurita, J. Lee, M. Kawanabe, and N. Inoue, “Cityrefer: geography-aware 3d visual grounding dataset on city-scale point cloud data,” arXiv preprint arXiv:2310.18773 , 2023.
