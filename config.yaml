@@ -25,3 +25,38 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: VLA AR
+      description: 查询VLA（视觉-语言-动作）模型在架构创新方向的最新论文
+      enabled: true
+      keywords:
+        - keyword: COT
+          keyword_cn: 思维链
+          query: C
+        - keyword: VLA
+          keyword_cn: ''
+          query: C
+        - keyword: VLA model
+          keyword_cn: 视觉-语言-动作模型
+          query: Vision-Language-Action model architecture
+        - keyword: embodied AI
+          keyword_cn: 具身智能
+          query: embodied artificial intelligence model structure
+        - keyword: multimodal fusion
+          keyword_cn: 多模态融合
+          query: multimodal fusion techniques in VLA models
+        - keyword: cross-modal
+          keyword_cn: 跨模态
+          query: cross-modal attention mechanisms in robotics
+      intent_queries:
+        - query: latest architectural innovations in Vision Language Action models
+          query_cn: 视觉 语言 动作模型最新的架构创新
+          enabled: true
+          source: manual
+          note: ''
+        - query: state of the art VLA model design and implementation
+          query_cn: 最先进的VLA模型设计与实现
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-03-12T10:47:50.219Z'
