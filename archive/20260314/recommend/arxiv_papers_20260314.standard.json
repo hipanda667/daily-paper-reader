@@ -1,0 +1,339 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-03-14T19:40:58.240788+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 5,
+    "deep_cap": 6,
+    "deep_selected": 5,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [
+    {
+      "id": "2603.07647v1",
+      "title": "TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory for Long-Horizon Vision-Language-Action Manipulation",
+      "abstract": "Pretrained Vision-Language-Action (VLA) policies have achieved strong single-step manipulation, but their inference remains largely memoryless, which is brittle in non-Markovian long-horizon settings with occlusion, state aliasing, and subtle post-action changes. Prior approaches inject history either by stacking frames, which scales visual tokens and latency while adding near-duplicate pixels, or by learning additional temporal interfaces that require (re-)training and may break the original single-frame inference graph. We present TempoFit, a training-free temporal retrofit that upgrades frozen VLAs through state-level memory. Our key insight is that prefix attention K/V already form a model-native, content-addressable runtime state; reusing them across timesteps introduces history without new tokens or trainable modules. TempoFit stores layer-wise FIFO prefix K/V at selected intermediate layers, performs parameter-free K-to-K retrieval with Frame-Gap Temporal Bias (FGTB), a fixed recency bias inspired by positional biases in NLP, to keep decisions present-dominant, and injects the retrieved context via pre-attention residual loading with norm-preserving rescaling to avoid distribution shift under frozen weights. On LIBERO-LONG, TempoFit improves strong pretrained backbones by up to +4.0% average success rate while maintaining near-real-time latency, and it transfers consistently to CALVIN and real-robot long-horizon tasks.",
+      "authors": [
+        "Jun Sun",
+        "Boyu Yang",
+        "Jiahao Zhang",
+        "Ning Ma",
+        "Chencheng Wu",
+        "Siqing Zhang",
+        "Yiou Huang",
+        "Qiufeng Wang",
+        "Shan Liang",
+        "Yaran Chen"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-08T14:17:25+00:00",
+      "link": "https://arxiv.org/pdf/2603.07647v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "training-free temporal retrofit for frozen VLAs",
+      "llm_evidence_cn": "针对冻结VLA模型的免训练时间回顾性改进",
+      "llm_evidence": "针对冻结VLA模型的免训练时间回顾性改进",
+      "canonical_evidence": "针对冻结VLA模型的免训练时间回顾性改进",
+      "llm_tldr_en": "Presents TempoFit, a plug-and-play temporal memory upgrade for long-horizon VLA manipulation.",
+      "llm_tldr_cn": "提出TempoFit，一种为VLA模型提供长时程操作能力的即插即用时间记忆升级方案。",
+      "llm_tldr": "提出TempoFit，一种为VLA模型提供长时程操作能力的即插即用时间记忆升级方案。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "Vision-Language-Action model architecture",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.09086v1",
+      "title": "Latent World Models for Automated Driving: A Unified Taxonomy, Evaluation Framework, and Open Challenges",
+      "abstract": "Emerging generative world models and vision-language-action (VLA) systems are rapidly reshaping automated driving by enabling scalable simulation, long-horizon forecasting, and capability-rich decision making. Across these directions, latent representations serve as the central computational substrate: they compress high-dimensional multi-sensor observations, enable temporally coherent rollouts, and provide interfaces for planning, reasoning, and controllable generation. This paper proposes a unifying latent-space framework that synthesizes recent progress in world models for automated driving. The framework organizes the design space by the target and form of latent representations (latent worlds, latent actions, latent generators; continuous states, discrete tokens, and hybrids) and by structural priors for geometry, topology, and semantics. Building on this taxonomy, the paper articulates five cross-cutting internal mechanics (i.e, structural isomorphism, long-horizon temporal stability, semantic and reasoning alignment, value-aligned objectives and post-training, as well as adaptive computation and deliberation) and connects these design choices to robustness, generalization, and deployability. The work also proposes concrete evaluation prescriptions, including a closed-loop metric suite and a resource-aware deliberation cost, designed to reduce the open-loop / closed-loop mismatch. Finally, the paper identifies actionable research directions toward advancing latent world model for decision-ready, verifiable, and resource-efficient automated driving.",
+      "authors": [
+        "Rongxiang Zeng",
+        "Yongqi Dong"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO",
+        "cs.AI",
+        "cs.LG",
+        "cs.MA",
+        "eess.SY"
+      ],
+      "published": "2026-03-10T01:56:17+00:00",
+      "link": "https://arxiv.org/pdf/2603.09086v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "unifying latent-space framework for VLA systems in driving",
+      "llm_evidence_cn": "自动驾驶VLA系统的统一潜空间框架",
+      "llm_evidence": "自动驾驶VLA系统的统一潜空间框架",
+      "canonical_evidence": "自动驾驶VLA系统的统一潜空间框架",
+      "llm_tldr_en": "Proposes a unifying latent-space framework for world models and VLA systems in automated driving.",
+      "llm_tldr_cn": "提出了一种用于自动驾驶世界模型和VLA系统的统一潜空间框架。",
+      "llm_tldr": "提出了一种用于自动驾驶世界模型和VLA系统的统一潜空间框架。",
+      "llm_tags": [
+        "query:vla-ar:composite"
+      ],
+      "matched_query_tag": "query:vla-ar:composite",
+      "matched_query_text": "Papers central to 查询VLA（视觉-语言-动作）模型在架构创新方向的最新论文, especially work that connects or combines: C; Vision-Language-Action model architecture; embodied artificial intelligence model structure; multimodal fusion techniques in VLA models; cross-modal attention mechanisms in robotics; latest architectural innovations in Vision Language Action models; state of the art VLA model design and implementation.",
+      "matched_requirement_id": "req-composite-vla-ar",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.10871v1",
+      "title": "FG-CLTP: Fine-Grained Contrastive Language Tactile Pretraining for Robotic Manipulation",
+      "abstract": "Recent advancements in integrating tactile sensing into vision-language-action (VLA) models have demonstrated transformative potential for robotic perception. However, existing tactile representations predominantly rely on qualitative descriptors (e.g., texture), neglecting quantitative contact states such as force magnitude, contact geometry, and principal axis orientation, which are indispensable for fine-grained manipulation. To bridge this gap, we propose FG-CLTP, a fine-grained contrastive language tactile pretraining framework. We first introduce a novel dataset comprising over 100k tactile 3D point cloud-language pairs that explicitly capture multidimensional contact states from the sensor's perspective. We then implement a discretized numerical tokenization mechanism to achieve quantitative-semantic alignment, effectively injecting explicit physical metrics into the multimodal feature space. The proposed FG-CLTP model yields a 95.9% classification accuracy and reduces the regression error (MAE) by 52.6% compared to state-of-the-art methods. Furthermore, the integration of 3D point cloud representations establishes a sensor-agnostic foundation with a minimal sim-to-real gap of 3.5%. Building upon this fine-grained representation, we develop a 3D tactile-language-action (3D-TLA) architecture driven by a flow matching policy to enable multimodal reasoning and control. Extensive experiments demonstrate that our framework significantly outperforms strong baselines in contact-rich manipulation tasks, providing a robust and generalizable foundation for tactile-language-action models.",
+      "authors": [
+        "Wenxuan Ma",
+        "Chaofan Zhang",
+        "Yinghao Cai",
+        "Guocai Yao",
+        "Shaowei Cui",
+        "Shuo Wang"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-11T15:21:54+00:00",
+      "link": "https://arxiv.org/pdf/2603.10871v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "integrating tactile sensing into vision-language-action (VLA) models",
+      "llm_evidence_cn": "将触觉感知集成到视觉-语言-动作（VLA）模型中",
+      "llm_evidence": "将触觉感知集成到视觉-语言-动作（VLA）模型中",
+      "canonical_evidence": "将触觉感知集成到视觉-语言-动作（VLA）模型中",
+      "llm_tldr_en": "Proposes FG-CLTP to integrate fine-grained tactile sensing into VLA models for better robotic manipulation.",
+      "llm_tldr_cn": "提出FG-CLTP框架，将细粒度触觉感知集成到VLA模型中以提升机器人操作能力。",
+      "llm_tldr": "提出FG-CLTP框架，将细粒度触觉感知集成到VLA模型中以提升机器人操作能力。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "multimodal fusion techniques in VLA models",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.07949v2",
+      "title": "RAPID: Redundancy-Aware and Compatibility-Optimal Edge-Cloud Partitioned Inference for Diverse VLA Models",
+      "abstract": "Vision Language Action (VLA) models are mainstream in embodied intelligence but face high inference costs. Edge-Cloud Collaborative (ECC) inference offers an effective fix by easing edge-device computing pressure to meet real-time needs. However, existing ECC frameworks are suboptimal for VLA models due to two challenges: (1) Mainstream environment-oriented edge-cloud partitioning methods are susceptible to interference from visual noise; (2) Existing edge-cloud partitioning methods overlook the step-wise redundancy unique to embodied tasks, thereby disrupting the physical continuity of motion. To address these issues, we propose a novel ECC inference framework, termed RAPID. Specifically, we developed an implementation tailored to the proposed framework. Experiments demonstrate this achieves a speedup of up to 1.73x with only 5%~7% overhead.",
+      "authors": [
+        "Zihao Zheng",
+        "Sicheng Tian",
+        "Hangyu Cao",
+        "Chenyue Li",
+        "Jiayu Chen",
+        "Maoliang Li",
+        "Xinhao Sun",
+        "Hailong Zou",
+        "Guojie Luo",
+        "Xiang Chen"
+      ],
+      "primary_category": "cs.DC",
+      "categories": [
+        "cs.DC",
+        "cs.RO"
+      ],
+      "published": "2026-03-09T04:30:57+00:00",
+      "link": "https://arxiv.org/pdf/2603.07949v2",
+      "tags": [
+        "keyword:VLA AR",
+        "query:VLA AR"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Edge-cloud partitioned inference framework for VLA models",
+      "llm_evidence_cn": "VLA模型的边云协同分区推理框架",
+      "llm_evidence": "VLA模型的边云协同分区推理框架",
+      "canonical_evidence": "VLA模型的边云协同分区推理框架",
+      "llm_tldr_en": "Proposes RAPID, an edge-cloud collaborative inference framework optimized for VLA model redundancy and continuity.",
+      "llm_tldr_cn": "提出RAPID，一种针对VLA模型冗余性和运动连续性优化的边云协同推理框架。",
+      "llm_tldr": "提出RAPID，一种针对VLA模型冗余性和运动连续性优化的边云协同推理框架。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "state of the art VLA model design and implementation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2603.11653v1",
+      "title": "Simple Recipe Works: Vision-Language-Action Models are Natural Continual Learners with Reinforcement Learning",
+      "abstract": "Continual Reinforcement Learning (CRL) for Vision-Language-Action (VLA) models is a promising direction toward self-improving embodied agents that can adapt in openended, evolving environments. However, conventional wisdom from continual learning suggests that naive Sequential Fine-Tuning (Seq. FT) leads to catastrophic forgetting, necessitating complex CRL strategies. In this work, we take a step back and conduct a systematic study of CRL for large pretrained VLAs across three models and five challenging lifelong RL benchmarks. We find that, contrary to established belief, simple Seq. FT with low-rank adaptation (LoRA) is remarkably strong: it achieves high plasticity, exhibits little to no forgetting, and retains strong zero-shot generalization, frequently outperforming more sophisticated CRL methods. Through detailed analysis, we show that this robustness arises from a synergy between the large pretrained model, parameter-efficient adaptation, and on-policy RL. Together, these components reshape the stability-plasticity trade-off, making continual adaptation both stable and scalable. Our results position Sequential Fine-Tuning as a powerful method for continual RL with VLAs and provide new insights into lifelong learning in the large model era. Code is available at github.com/UT-Austin-RobIn/continual-vla-rl.",
+      "authors": [
+        "Jiaheng Hu",
+        "Jay Shim",
+        "Chen Tang",
+        "Yoonchang Sung",
+        "Bo Liu",
+        "Peter Stone",
+        "Roberto Martin-Martin"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.RO"
+      ],
+      "published": "2026-03-12T08:22:39+00:00",
+      "link": "https://arxiv.org/pdf/2603.11653v1",
+      "tags": [
+        "keyword:VLA AR",
+        "query:VLA AR"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Continual reinforcement learning for VLA models using LoRA",
+      "llm_evidence_cn": "使用LoRA对VLA模型进行持续强化学习",
+      "llm_evidence": "使用LoRA对VLA模型进行持续强化学习",
+      "canonical_evidence": "使用LoRA对VLA模型进行持续强化学习",
+      "llm_tldr_en": "Demonstrates that simple sequential fine-tuning with LoRA enables effective continual learning in VLA models.",
+      "llm_tldr_cn": "研究表明，结合LoRA的简单顺序微调能使VLA模型具备出色的持续学习能力。",
+      "llm_tldr": "研究表明，结合LoRA的简单顺序微调能使VLA模型具备出色的持续学习能力。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "state of the art VLA model design and implementation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2603.07892v1",
+      "title": "RoboRouter: Training-Free Policy Routing for Robotic Manipulation",
+      "abstract": "Research on robotic manipulation has developed a diverse set of policy paradigms, including vision-language-action (VLA) models, vision-action (VA) policies, and code-based compositional approaches. Concrete policies typically attain high success rates on specific task distributions but lim-ited generalization beyond it. Rather than proposing an other monolithic policy, we propose to leverage the complementary strengths of existing approaches through intelligent policy routing. We introduce RoboRouter, a training-free framework that maintains a pool of heterogeneous policies and learns to select the best-performing policy for each task through accumulated execution experience. Given a new task, RoboRouter constructs a semantic task representation, retrieves historical records of similar tasks, predicts the optimal policy choice without requiring trial-and-error, and incorporates structured feedback to refine subsequent routing decisions. Integrating a new policy into the system requires only lightweight evaluation and incurs no training overhead. Across simulation benchmark and real-world evaluations, RoboRouter consistently outperforms than in-dividual policies, improving average success rate by more than 3% in simulation and over 13% in real-world settings, while preserving execution efficiency. Our results demonstrate that intelligent routing across heterogeneous, off-the-shelf policies provides a practical and scalable pathway toward building more capable robotic systems.",
+      "authors": [
+        "Yiteng Chen",
+        "Zhe Cao",
+        "Hongjia Ren",
+        "Chenjie Yang",
+        "Wenbo Li",
+        "Shiyi Wang",
+        "Yemin Wang",
+        "Li Zhang",
+        "Yanming Shao",
+        "Zhenjun Zhao",
+        "Huiping Zhuang",
+        "Qingyao Wu"
+      ],
+      "primary_category": "cs.RO",
+      "categories": [
+        "cs.RO"
+      ],
+      "published": "2026-03-09T02:14:32+00:00",
+      "link": "https://arxiv.org/pdf/2603.07892v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "training-free policy routing for heterogeneous VLA models",
+      "llm_evidence_cn": "异构VLA模型的免训练策略路由",
+      "llm_evidence": "异构VLA模型的免训练策略路由",
+      "canonical_evidence": "异构VLA模型的免训练策略路由",
+      "llm_tldr_en": "Introduces RoboRouter, a framework that routes tasks to the most suitable policy among VLA and VA models.",
+      "llm_tldr_cn": "引入了RoboRouter，一个将任务路由至VLA和VA模型中最合适策略的框架。",
+      "llm_tldr": "引入了RoboRouter，一个将任务路由至VLA和VA模型中最合适策略的框架。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "Vision-Language-Action model architecture",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.11106v1",
+      "title": "RC-NF: Robot-Conditioned Normalizing Flow for Real-Time Anomaly Detection in Robotic Manipulation",
+      "abstract": "Recent advances in Vision-Language-Action (VLA) models have enabled robots to execute increasingly complex tasks. However, VLA models trained through imitation learning struggle to operate reliably in dynamic environments and often fail under Out-of-Distribution (OOD) conditions. To address this issue, we propose Robot-Conditioned Normalizing Flow (RC-NF), a real-time monitoring model for robotic anomaly detection and intervention that ensures the robot's state and the object's motion trajectory align with the task. RC-NF decouples the processing of task-aware robot and object states within the normalizing flow. It requires only positive samples for unsupervised training and calculates accurate robotic anomaly scores during inference through the probability density function. We further present LIBERO-Anomaly-10, a benchmark comprising three categories of robotic anomalies for simulation evaluation. RC-NF achieves state-of-the-art performance across all anomaly types compared to previous methods in monitoring robotic tasks. Real-world experiments demonstrate that RC-NF operates as a plug-and-play module for VLA models (e.g., pi0), providing a real-time OOD signal that enables state-level rollback or task-level replanning when necessary, with a response latency under 100 ms. These results demonstrate that RC-NF noticeably enhances the robustness and adaptability of VLA-based robotic systems in dynamic environments.",
+      "authors": [
+        "Shijie Zhou",
+        "Bin Zhu",
+        "Jiarui Yang",
+        "Xiangyu Zhao",
+        "Jingjing Chen",
+        "Yu-Gang Jiang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "published": "2026-03-11T10:14:37+00:00",
+      "link": "https://arxiv.org/pdf/2603.11106v1",
+      "tags": [
+        "keyword:VLA AR"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "monitoring model for VLA anomaly detection and intervention",
+      "llm_evidence_cn": "用于VLA异常检测和干预的监控模型",
+      "llm_evidence": "用于VLA异常检测和干预的监控模型",
+      "canonical_evidence": "用于VLA异常检测和干预的监控模型",
+      "llm_tldr_en": "Proposes a normalizing flow model to detect anomalies in VLA-driven robotic manipulation.",
+      "llm_tldr_cn": "提出了一种归一化流模型，用于检测VLA驱动的机器人操作中的异常。",
+      "llm_tldr": "提出了一种归一化流模型，用于检测VLA驱动的机器人操作中的异常。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "state of the art VLA model design and implementation",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2603.11320v1",
+      "title": "UniCompress: Token Compression for Unified Vision-Language Understanding and Generation",
+      "abstract": "Unified models aim to support both understanding and generation by encoding images into discrete tokens and processing them alongside text within a single autoregressive framework. This unified design offers architectural simplicity and cross-modal synergy, which facilitates shared parameterization, consistent training objectives, and seamless transfer between modalities. However, the large number of visual tokens required by such models introduces substantial computation and memory overhead, and this inefficiency directly hinders deployment in resource constrained scenarios such as embodied AI systems. In this work, we propose a unified token compression algorithm UniCompress that significantly reduces visual token count while preserving performance on both image understanding and generation tasks. Our method introduces a plug-in compression and decompression mechanism guided with learnable global meta tokens. The framework is lightweight and modular, enabling efficient integration into existing models without full retraining. Experimental results show that our approach reduces image tokens by up to 4 times, achieves substantial gains in inference latency and training cost, and incurs only minimal performance degradation, which demonstrates the promise of token-efficient unified modeling for real world multimodal applications.",
+      "authors": [
+        "Ziyao Wang",
+        "Chen Chen",
+        "Jingtao Li",
+        "Weiming Zhuang",
+        "Jiabo Huang",
+        "Ang Li",
+        "Lingjuan Lyu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-03-11T21:27:15+00:00",
+      "link": "https://arxiv.org/pdf/2603.11320v1",
+      "tags": [
+        "keyword:VLA AR",
+        "query:VLA AR"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Token compression for embodied AI systems",
+      "llm_evidence_cn": "具身智能系统的令牌压缩技术",
+      "llm_evidence": "具身智能系统的令牌压缩技术",
+      "canonical_evidence": "具身智能系统的令牌压缩技术",
+      "llm_tldr_en": "Develops UniCompress to reduce visual token overhead in unified models for embodied AI deployment.",
+      "llm_tldr_cn": "开发UniCompress算法，减少统一模型中的视觉令牌开销，助力具身智能部署。",
+      "llm_tldr": "开发UniCompress算法，减少统一模型中的视觉令牌开销，助力具身智能部署。",
+      "llm_tags": [
+        "query:vla-ar"
+      ],
+      "matched_query_tag": "query:vla-ar",
+      "matched_query_text": "embodied artificial intelligence model structure",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -6,43 +6,46 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-03-12
-- 运行时间：2026-03-12 20:18:46 UTC
+- 最新运行日期：2026-03-14
+- 运行时间：2026-03-14 19:42:34 UTC
 - 运行状态：成功
-- 本次总论文数：7
-- 精读区：4
+- 本次总论文数：8
+- 精读区：5
 - 速读区：3
 
 ### 今日简报（AI）
-今日聚焦具身智能与世界模型，深度解析 7 篇前沿论文，其中机器人多任务学习与动作规划表现亮眼。
-重点关注 CORAL 的 LoRA 专家扩展方案与 World2Act 的技能组合世界模型，两项研究均获 9.0 高分。
-建议优先精读这两篇高分佳作，深入理解具身智能从数据引擎到复杂任务执行的最新演进路径。
-- 详情：[/202603/12/README](/202603/12/README)
+今日深度解析 8 篇前沿论文，重点攻克长程机器人操控与自动驾驶世界模型两大核心领域。
+满分力作 TempoFit 提出插件式 KV 缓存优化 VLA 模型，而自动驾驶潜在世界模型综述则确立了行业评估新标准。
+建议优先研读 TempoFit 以掌握具身智能长程任务处理，并关注自动驾驶世界模型的最新分类框架。
+- 详情：[/202603/14/README](/202603/14/README)
 
 ### 精读区论文标签
-1. [CORAL: Scalable Multi-Task Robot Learning via LoRA Experts](/202603/12/2603.09298v1-coral-scalable-multi-task-robot-learning-via-lora-experts)  
+1. [TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory for Long-Horizon Vision-Language-Action Manipulation](/202603/14/2603.07647v1-tempofit-plug-and-play-layer-wise-temporal-kv-memory-for-long-horizon-vision-language-action-manipulation)  
+   标签：评分：10.0/10、query:vla-ar
+   evidence：针对冻结VLA模型的免训练时间回顾性改进
+2. [Latent World Models for Automated Driving: A Unified Taxonomy, Evaluation Framework, and Open Challenges](/202603/14/2603.09086v1-latent-world-models-for-automated-driving-a-unified-taxonomy-evaluation-framework-and-open-challenges)  
    标签：评分：9.0/10、query:vla-ar
-   evidence：带有LoRA专家的VLA骨干无关框架
-2. [World2Act: Latent Action Post-Training via Skill-Compositional World Models](/202603/12/2603.10422v1-world2act-latent-action-post-training-via-skill-compositional-world-models)  
+   evidence：自动驾驶VLA系统的统一潜空间框架
+3. [FG-CLTP: Fine-Grained Contrastive Language Tactile Pretraining for Robotic Manipulation](/202603/14/2603.10871v1-fg-cltp-fine-grained-contrastive-language-tactile-pretraining-for-robotic-manipulation)  
    标签：评分：9.0/10、query:vla-ar
-   evidence：将VLA动作与世界模型潜变量对齐的后训练框架
-3. [TiPToP: A Modular Open-Vocabulary Planning System for Robotic Manipulation](/202603/12/2603.09971v1-tiptop-a-modular-open-vocabulary-planning-system-for-robotic-manipulation)  
+   evidence：将触觉感知集成到视觉-语言-动作（VLA）模型中
+4. [RAPID: Redundancy-Aware and Compatibility-Optimal Edge-Cloud Partitioned Inference for Diverse VLA Models](/202603/14/2603.07949v2-rapid-redundancy-aware-and-compatibility-optimal-edge-cloud-partitioned-inference-for-diverse-vla-models)  
    标签：评分：8.0/10、query:vla-ar
-   evidence：结合视觉基础模型与TAMP的模块化架构
-4. [OmniGuide: Universal Guidance Fields for Enhancing Generalist Robot Policies](/202603/12/2603.10052v1-omniguide-universal-guidance-fields-for-enhancing-generalist-robot-policies)  
+   evidence：VLA模型的边云协同分区推理框架
+5. [Simple Recipe Works: Vision-Language-Action Models are Natural Continual Learners with Reinforcement Learning](/202603/14/2603.11653v1-simple-recipe-works-vision-language-action-models-are-natural-continual-learners-with-reinforcement-learning)  
    标签：评分：8.0/10、query:vla-ar
-   evidence：增强通用VLA策略的通用引导场
+   evidence：使用LoRA对VLA模型进行持续强化学习
 
 ### 速读区论文标签
-1. [ViSA-Enhanced Aerial VLN: A Visual-Spatial Reasoning Enhanced Framework for Aerial Vision-Language Navigation](/202603/12/2603.08007v1-visa-enhanced-aerial-vln-a-visual-spatial-reasoning-enhanced-framework-for-aerial-vision-language-navigation)  
+1. [RoboRouter: Training-Free Policy Routing for Robotic Manipulation](/202603/14/2603.07892v1-roborouter-training-free-policy-routing-for-robotic-manipulation)  
    标签：评分：7.0/10、query:vla-ar
-   evidence：具身导航的视觉空间推理框架
-2. [Seed2Scale: A Self-Evolving Data Engine for Embodied AI via Small to Large Model Synergy and Multimodal Evaluation](/202603/12/2603.08260v1-seed2scale-a-self-evolving-data-engine-for-embodied-ai-via-small-to-large-model-synergy-and-multimodal-evaluation)  
+   evidence：异构VLA模型的免训练策略路由
+2. [RC-NF: Robot-Conditioned Normalizing Flow for Real-Time Anomaly Detection in Robotic Manipulation](/202603/14/2603.11106v1-rc-nf-robot-conditioned-normalizing-flow-for-real-time-anomaly-detection-in-robotic-manipulation)  
    标签：评分：7.0/10、query:vla-ar
-   evidence：使用轻量级VLA模型SuperTiny的自进化数据引擎
-3. [The Model Knows Which Tokens Matter: Automatic Token Selection via Noise Gating](/202603/12/2603.07135v1-the-model-knows-which-tokens-matter-automatic-token-selection-via-noise-gating)  
-   标签：评分：6.0/10、query:vla-ar
-   evidence：多模态融合效率的自动Token选择技术
+   evidence：用于VLA异常检测和干预的监控模型
+3. [UniCompress: Token Compression for Unified Vision-Language Understanding and Generation](/202603/14/2603.11320v1-unicompress-token-compression-for-unified-vision-language-understanding-and-generation)  
+   标签：评分：7.0/10、query:vla-ar
+   evidence：具身智能系统的令牌压缩技术
 
 
 <div class="dpr-home-promo-card">
